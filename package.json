@@ -1,0 +1,26 @@
+{
+  "name": "youtube-music-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devnok/youtube-music-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/devnok/youtube-music-backend/issues"
+  },
+  "homepage": "https://github.com/devnok/youtube-music-backend#readme",
+  "dependencies": {
+    "@nestjs/common": "^7.6.15",
+    "@nestjs/core": "^7.6.15",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^6.6.7"
+  }
+}
