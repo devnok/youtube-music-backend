@@ -7,8 +7,6 @@ frameworkVersion: '2'
 
 plugins:
   - serverless-plugin-typescript
-  - serverless-plugin-optimize
-  - serverless-offline
 
 provider:
   name: aws
