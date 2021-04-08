@@ -12,8 +12,6 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "sls:deploy": "sls deploy",
-    "sls:offline": "sls offline",
-    "sls:package": "sls package",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
