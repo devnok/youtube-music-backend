@@ -1,5 +1,4 @@
-service:
-  name: youtube-music-backend
+service: youtube-music-backend
 
 app: youtube-music-backend
 # org: devnok
