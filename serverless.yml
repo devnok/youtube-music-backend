@@ -14,7 +14,7 @@
 service: youtube-music-backend
 # app and org for use with dashboard.serverless.com
 app: youtube-music-backend
-org: devnok
+# org: devnok
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
