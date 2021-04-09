@@ -7,12 +7,20 @@ frameworkVersion: '2'
 
 plugins:
   - serverless-plugin-typescript
+  - serverless-offline
 
 provider:
   name: aws
   runtime: nodejs12.x
   region: ap-northeast-2
-  lambdaHashingVersion: 20201221
+  stage: dev
+  # vpc:
+  #   securityGroupIds:
+  #     - sg-d0be64b5
+  #   subnetIds:
+  #     - subnet-f7ff7c8c
+  #     - subnet-525d671e
+  #     - subnet-9eba6cf5
 
 functions:
   main:
