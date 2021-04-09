@@ -23,6 +23,8 @@ export class AuthService {
 
     const user = await this.usersService.findOneOrCreate(email);
 
+    console.log(user);
+
     const payload = {
       email,
       sub: user.id,
