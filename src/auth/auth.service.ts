@@ -1,16 +1,35 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UsersService } from 'src/users/users.service';
+import { User } from '../users/user.entity';
+import { UsersService } from '../users/users.service';
 
+interface SocialUser {
+  email: string;
+  accessToken: string;
+}
 @Injectable()
 export class AuthService {
-  constructor() {
-    //something
+  constructor(
+    private usersService: UsersService,
+    private jwtService: JwtService,
+  ) {}
+
+  async validateUser(email: string): Promise<User> {
+    return this.usersService.findOneOrCreate(email);
   }
 
-  async googleLogin(user: any) {
+  async googleLogin(socialUser: SocialUser) {
+    const { email, accessToken } = socialUser;
+
+    const user = await this.usersService.findOneOrCreate(email);
+
+    const payload = {
+      email,
+      sub: user.id,
+    };
+
     return {
-      user,
+      accessToken: this.jwtService.sign(payload),
     };
   }
 }

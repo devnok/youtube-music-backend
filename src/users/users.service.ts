@@ -13,4 +13,14 @@ export class UsersService {
   async findOne(email: string): Promise<User | undefined> {
     return this.usersRepository.findOne({ email });
   }
+
+  async findOneOrCreate(email: string): Promise<User> {
+    const user = await this.usersRepository.findOne({ email });
+    if (!user) {
+      return this.usersRepository.create({
+        email,
+      });
+    }
+    return user;
+  }
 }
