@@ -1,3 +1,4 @@
-import databaseConfig from './databse';
+import authConfig from './auth';
+import databaseConfig from './database';
 
-export default [databaseConfig];
+export default [databaseConfig, authConfig];

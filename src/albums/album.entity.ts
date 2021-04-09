@@ -17,8 +17,8 @@ export class Album {
   @Column()
   title: string;
 
-  @ManyToOne(() => User, (user) => user.albums)
-  user: User;
+  // @ManyToOne(() => User, (user) => user.albums)
+  // user: User;
 
   @OneToMany(() => Song, (song) => song.album)
   songs: Song[];

@@ -2,7 +2,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { DatabaseConfig } from './config/databse';
+import { AuthModule } from './auth/auth.module';
+import { DatabaseConfig } from './config/database';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
@@ -23,6 +24,7 @@ import config from './config';
       }),
     }),
     UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
