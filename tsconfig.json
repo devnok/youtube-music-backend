@@ -3,16 +3,21 @@
     "target": "es2017",                                /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019', 'ES2020', or 'ESNEXT'. */
     "module": "commonjs",                           /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020', or 'ESNext'. */
 
-    "sourceMap": true,                           /* Generates corresponding '.map' file. */
+    "declaration": true, // .d.ts 파일 생성. 디버깅 용
+    // "incremental": true,
+    "sourceMap": true, // .js.map 파일을 생성한다. 디버깅을 위해 사용되며 일단 true로 설정
     "baseUrl": "./",                             /* Base directory to resolve non-absolute module names. */
     "outDir": "./dist",                              /* Redirect output structure to the directory. */
 
-    "removeComments": true,                      /* Do not emit comments to output. */
+    "skipLibCheck": true, // library의 .d.ts의 type checking을 skip한다, 보통 library는 타입 체크가 되어있기 때문에 true
+    "removeComments": true, // 컴파일 시 주석 제거
 
-    "esModuleInterop": true,
+    "esModuleInterop": true, // babel 호환
 
-    "experimentalDecorators": true,              /* Enables experimental support for ES7 decorators. */
-    "emitDecoratorMetadata": true,               /* Enables experimental support for emitting type metadata for decorators. */
+    // experimental options
+    "experimentalDecorators": true,  // decorator 사용 (class, method, member variable, argument 등에 사용됨 - spring의 annotation과 비슷)
+    "emitDecoratorMetadata": true,   // reflect-metadata 모듈과 함께 사용되는 decorator를 위한 metadata의 타입을 추론하게 해준다.
 
-  }
+  },
+  "include": ["src/**/*"]
 }
