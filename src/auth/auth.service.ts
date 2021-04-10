@@ -13,24 +13,25 @@ export class AuthService {
     private usersService: UsersService,
     private jwtService: JwtService,
   ) {}
+  async createToken(user: User) {
+    const { id, email } = user;
+    const accessToken = this.jwtService.sign(payload, { expiresIn: '1h' });
+
+    const payload = {
+      email,
+      sub: id,
+    };
+
+    return {
+      accessToken,
+    };
+  }
 
   async googleLogin(socialUser: SocialUser) {
     const { email } = socialUser;
 
     const user = await this.usersService.findOneOrCreate(email);
 
-    console.log(user);
-
-    const payload = {
-      email,
-      sub: user.id,
-    };
-
-    const accessToken = this.jwtService.sign(payload, { expiresIn: '1h' });
-    // const refreshToken = this.jwtService.sign(payload, { expiresIn: '30d' });
-
-    return {
-      accessToken,
-    };
+    return this.createToken(user);
   }
 }
