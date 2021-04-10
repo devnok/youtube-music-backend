@@ -7,8 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { Album } from 'src/albums/album.entity';
-import { User } from 'src/users/user.entity';
+import { Album } from '../albums/album.entity';
 
 @Entity()
 export class Song {
@@ -17,10 +16,6 @@ export class Song {
 
   @Column()
   title: string;
-
-  @ManyToMany(() => User)
-  @JoinTable()
-  artists: User[];
 
   @ManyToOne(() => Album, (album) => album.songs)
   album: Album;

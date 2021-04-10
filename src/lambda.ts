@@ -3,6 +3,7 @@ import { Context, Handler } from 'aws-lambda';
 import { AppModule } from './app.module';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import { NestFactory } from '@nestjs/core';
+import { ValidationPipe } from '@nestjs/common';
 import express from 'express';
 import serverlessExpress from '@vendia/serverless-express';
 
@@ -15,6 +16,8 @@ async function bootstrap() {
       AppModule,
       new ExpressAdapter(expressApp),
     );
+
+    nestApp.useGlobalPipes(new ValidationPipe({}));
 
     await nestApp.init();
 
