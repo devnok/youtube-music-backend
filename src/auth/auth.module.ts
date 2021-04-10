@@ -19,7 +19,7 @@ import { UsersModule } from '../users/users.module';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         secret: configService.get('auth.jwtSecret'),
-        signOptions: { expiresIn: '60s' },
+        issuer: 'music.youtube.com',
       }),
     }),
   ],

@@ -14,12 +14,8 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async validateUser(email: string): Promise<User> {
-    return this.usersService.findOneOrCreate(email);
-  }
-
   async googleLogin(socialUser: SocialUser) {
-    const { email, accessToken } = socialUser;
+    const { email } = socialUser;
 
     const user = await this.usersService.findOneOrCreate(email);
 
@@ -30,8 +26,11 @@ export class AuthService {
       sub: user.id,
     };
 
+    const accessToken = this.jwtService.sign(payload, { expiresIn: '1h' });
+    // const refreshToken = this.jwtService.sign(payload, { expiresIn: '30d' });
+
     return {
-      accessToken: this.jwtService.sign(payload),
+      accessToken,
     };
   }
 }
