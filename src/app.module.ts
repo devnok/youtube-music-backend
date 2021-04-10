@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { DatabaseConfig } from './config/database';
 import { Module } from '@nestjs/common';
+import { PlaylistsModule } from './playlists/playlists.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import config from './config';
@@ -25,6 +26,7 @@ import config from './config';
     }),
     UsersModule,
     AuthModule,
+    PlaylistsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
