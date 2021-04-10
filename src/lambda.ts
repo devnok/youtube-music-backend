@@ -17,11 +17,7 @@ async function bootstrap() {
       new ExpressAdapter(expressApp),
     );
 
-    nestApp.useGlobalPipes(
-      new ValidationPipe({
-        transform: true,
-      }),
-    );
+    nestApp.useGlobalPipes(new ValidationPipe({}));
 
     await nestApp.init();
 

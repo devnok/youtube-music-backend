@@ -8,7 +8,7 @@ export abstract class BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
   @CreateDateColumn({ nullable: true })
-  createdAt: Date;
+  created_at: Date;
   @UpdateDateColumn({ nullable: true })
-  updatedAt: Date;
+  updated_at: Date;
 }

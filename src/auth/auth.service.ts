@@ -15,12 +15,13 @@ export class AuthService {
   ) {}
   async createToken(user: User) {
     const { id, email } = user;
-    const accessToken = this.jwtService.sign(payload, { expiresIn: '1h' });
 
     const payload = {
       email,
       sub: id,
     };
+
+    const accessToken = this.jwtService.sign(payload, { expiresIn: '24h' });
 
     return {
       accessToken,
