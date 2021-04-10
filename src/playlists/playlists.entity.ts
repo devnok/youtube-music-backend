@@ -1,4 +1,11 @@
-import { Column, Entity, JoinColumn, ManyToMany, ManyToOne } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+} from 'typeorm';
 
 import { BaseEntity } from '../base/base.entity';
 import { Song } from '../songs/song.entity';
@@ -17,5 +24,14 @@ export class Playlist extends BaseEntity {
   fk_user_id: string;
 
   @ManyToMany(() => Song)
+  @JoinTable({
+    name: 'playlist_songs',
+    joinColumn: {
+      name: 'fk_playlist_id',
+    },
+    inverseJoinColumn: {
+      name: 'fk_song_id',
+    },
+  })
   songs: Song[];
 }

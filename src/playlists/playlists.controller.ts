@@ -6,7 +6,6 @@ import {
   Patch,
   Param,
   Delete,
-  Request,
 } from '@nestjs/common';
 import { PlaylistsService } from './playlists.service';
 import { CreatePlaylistDto } from './dto/create-playlist.dto';
@@ -29,19 +28,20 @@ export class PlaylistsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.playlistsService.findOne(+id);
+    return this.playlistsService.findOne(id);
   }
 
   @Patch(':id')
   update(
+    @User() user,
     @Param('id') id: string,
     @Body() updatePlaylistDto: UpdatePlaylistDto,
   ) {
-    return this.playlistsService.update(+id, updatePlaylistDto);
+    return this.playlistsService.update(id, user, updatePlaylistDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.playlistsService.remove(+id);
+  remove(@User() user, @Param('id') id: string) {
+    return this.playlistsService.remove(id, user);
   }
 }

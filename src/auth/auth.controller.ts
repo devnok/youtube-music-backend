@@ -10,9 +10,7 @@ export class AuthController {
   @Public()
   @UseGuards(AuthGuard('google'))
   @Get('login/google')
-  googleAuth(@Req() req) {
-    // something
-  }
+  googleAuth() {}
 
   @Public()
   @UseGuards(AuthGuard('google'))
