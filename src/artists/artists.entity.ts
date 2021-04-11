@@ -1,13 +1,4 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  JoinTable,
-  ManyToMany,
-  ManyToOne,
-  OneToMany,
-  OneToOne,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
 
 import { Album } from '../albums/album.entity';
 import { BaseEntity } from '../base/base.entity';
@@ -26,8 +17,7 @@ export class Artist extends BaseEntity {
   @Column('uuid')
   fk_user_id: string;
 
-  @ManyToMany(() => Song)
-  @JoinTable({})
+  @OneToMany(() => Song, (song) => song.artist)
   songs: Song[];
 
   @OneToMany(() => Album, (album) => album.artist)

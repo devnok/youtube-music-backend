@@ -63,7 +63,7 @@ export class AlbumsService {
     if (!album) {
       throw new HttpException('Albums not found', HttpStatus.NOT_FOUND);
     }
-    console.log(user.id, album.fk_artist_id);
+
     if (album.fk_artist_id !== user.fk_artist_id) {
       throw new HttpException('This album is not yours', HttpStatus.FORBIDDEN);
     }
