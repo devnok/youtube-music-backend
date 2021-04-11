@@ -27,17 +27,23 @@ export class AlbumsService {
     return `This action returns all albums`;
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} album`;
-  }
-
-  async update(id: string, user: User, updateAlbumsDto: UpdateAlbumDto) {
+  async findOne(id: string) {
     const album = await this.albumsRepository.findOne(id);
 
-    const { title } = updateAlbumsDto;
+    if (!album) {
+      throw new HttpException('Album not found', HttpStatus.NOT_FOUND);
+    }
+
+    return album;
+  }
+
+  async update(id: string, user: User, updateAlbumDto: UpdateAlbumDto) {
+    const album = await this.albumsRepository.findOne(id);
+
+    const { title } = updateAlbumDto;
 
     if (!album) {
-      throw new HttpException('Albums not found', HttpStatus.NOT_FOUND);
+      throw new HttpException('Album not found', HttpStatus.NOT_FOUND);
     }
 
     if (album.fk_artist_id !== user.fk_artist_id) {
