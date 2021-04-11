@@ -10,6 +10,11 @@ import { Module } from '@nestjs/common';
 import { PlaylistsModule } from './playlists/playlists.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
+import { SongService } from './song/song.service';
+import { SongsService } from './songs/songs.service';
+import { SongsModule } from './songs/songs.module';
+import { AlbumsService } from './albums/albums.service';
+import { AlbumsModule } from './albums/albums.module';
 import config from './config';
 
 const entitiesPath = __dirname + '/**/*.entity.{js,ts}';
@@ -30,6 +35,8 @@ const entitiesPath = __dirname + '/**/*.entity.{js,ts}';
     UsersModule,
     AuthModule,
     PlaylistsModule,
+    SongsModule,
+    AlbumsModule,
   ],
   controllers: [AppController],
   providers: [
@@ -38,6 +45,9 @@ const entitiesPath = __dirname + '/**/*.entity.{js,ts}';
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
     },
+    SongService,
+    SongsService,
+    AlbumsService,
   ],
 })
 export class AppModule {}

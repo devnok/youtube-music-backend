@@ -1,11 +1,14 @@
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToMany,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
+import { Artist } from '../artists/artists.entity';
 import { BaseEntity } from '../base/base.entity';
 import { Playlist } from '../playlists/playlists.entity';
 
@@ -23,6 +26,13 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Playlist, (playlist) => playlist.user)
   playlists: Playlist[];
+
+  @OneToOne(() => Artist, (artist) => artist.user)
+  @JoinColumn({ name: 'fk_artist_id' })
+  artist: Artist;
+
+  @Column('uuid')
+  fk_artist_id: string;
 
   // @OneToMany(() => Album, (album) => album.user)
   // albums: Album[];
