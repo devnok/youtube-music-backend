@@ -15,6 +15,7 @@ import { SongsService } from './songs/songs.service';
 import { SongsModule } from './songs/songs.module';
 import { AlbumsService } from './albums/albums.service';
 import { AlbumsModule } from './albums/albums.module';
+import { SongsModule } from './songs/songs.module';
 import config from './config';
 
 const entitiesPath = __dirname + '/**/*.entity.{js,ts}';
