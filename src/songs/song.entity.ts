@@ -10,19 +10,15 @@ import {
 
 import { Album } from '../albums/album.entity';
 import { Artist } from '../artists/artists.entity';
+import { BaseEntity } from '../base/base.entity';
 
 @Entity()
-export class Song {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Song extends BaseEntity {
   @Column()
   title: string;
 
+  @Column()
   sound_file: string;
-
-  @ManyToOne(() => Album, (album) => album.songs)
-  album: Album;
 
   @ManyToOne(() => Artist, (artist) => artist.songs, { cascade: true })
   @JoinColumn({ name: 'fk_artist_id' })

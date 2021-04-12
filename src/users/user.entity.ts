@@ -18,21 +18,17 @@ import { Playlist } from '../playlists/playlists.entity';
 
 @Entity()
 export class User extends BaseEntity {
-  @Column({ type: 'varchar', length: 100, nullable: true })
+  @Column({ type: 'varchar', length: 100 })
   name: string;
 
-  @Column({ type: 'varchar', length: 100, nullable: false, unique: true })
+  @Column({ type: 'varchar', length: 100, unique: true })
   email: string;
 
   @OneToMany(() => Playlist, (playlist) => playlist.user)
   playlists: Playlist[];
 
   @OneToOne(() => Artist, (artist) => artist.user)
-  @JoinColumn({ name: 'fk_artist_id' })
   artist: Artist;
-
-  @Column('uuid')
-  fk_artist_id: string;
 
   // @OneToMany(() => Album, (album) => album.user)
   // albums: Album[];

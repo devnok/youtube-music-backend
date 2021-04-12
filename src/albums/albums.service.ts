@@ -16,7 +16,7 @@ export class AlbumsService {
   async create(user: User, createAlbumDto: CreateAlbumDto) {
     const album = this.albumsRepository.create({
       ...createAlbumDto,
-      fk_artist_id: user.fk_artist_id,
+      fk_artist_id: user.artist.id,
     });
     await this.albumsRepository.save(album);
 
@@ -46,7 +46,7 @@ export class AlbumsService {
       throw new HttpException('Album not found', HttpStatus.NOT_FOUND);
     }
 
-    if (album.fk_artist_id !== user.fk_artist_id) {
+    if (album.fk_artist_id !== user.artist.id) {
       throw new HttpException('This album is not yours', HttpStatus.FORBIDDEN);
     }
 
@@ -64,7 +64,7 @@ export class AlbumsService {
       throw new HttpException('Albums not found', HttpStatus.NOT_FOUND);
     }
 
-    if (album.fk_artist_id !== user.fk_artist_id) {
+    if (album.fk_artist_id !== user.artist.id) {
       throw new HttpException('This album is not yours', HttpStatus.FORBIDDEN);
     }
     await this.albumsRepository.remove(album);
