@@ -1,20 +1,8 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToMany,
-  OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, OneToMany, OneToOne } from 'typeorm';
 
 import { Artist } from '../artists/artists.entity';
 import { BaseEntity } from '../base/base.entity';
 import { Playlist } from '../playlists/playlists.entity';
-
-// import { Album } from 'src/albums/album.entity';
-// import { Playlist } from 'src/playlists/playlists.entity';
-// import { Song } from 'src/songs/song.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -29,10 +17,4 @@ export class User extends BaseEntity {
 
   @OneToOne(() => Artist, (artist) => artist.user)
   artist: Artist;
-
-  // @OneToMany(() => Album, (album) => album.user)
-  // albums: Album[];
-
-  // @ManyToMany(() => Song)
-  // songs: Song[];
 }
