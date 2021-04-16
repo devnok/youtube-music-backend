@@ -13,6 +13,7 @@ import { CreatePlaylistDto } from './dto/create-playlist.dto';
 import { UpdatePlaylistDto } from './dto/update-playlist.dto';
 import { Playlist } from './playlists.entity';
 import { FindPlaylistListDto } from './dto/find-playlist-list.dto';
+import { normalize } from '../lib/utils';
 
 @Injectable()
 export class PlaylistsService {
@@ -101,11 +102,36 @@ export class PlaylistsService {
   async update(id: string, user: User, updatePlaylistDto: UpdatePlaylistDto) {
     const playlist = await this.getPlaylistIfValid(id, user);
 
-    const { title } = updatePlaylistDto;
+    const { title, playlist_order } = updatePlaylistDto;
 
-    playlist.title = title;
+    if (title !== playlist.title) {
+      playlist.title = title;
+      await this.playlistsRepository.save(playlist);
+    }
+    const playlistSongs = await this.playlistSongsRepository.find({
+      fk_playlist_id: id,
+    });
 
-    await this.playlistsRepository.save(playlist);
+    const valid =
+      playlistSongs.every((ps) => playlist_order.includes(ps.id)) &&
+      playlistSongs.length === playlist_order.length;
+    if (!valid) {
+      throw new HttpException(
+        'Playlist order is invalid',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    const playlistSongssById = normalize(playlistSongs, (ps) => ps.id);
+
+    await Promise.all(
+      playlist_order.map((id, index) => {
+        const ps = playlistSongssById[id];
+        if (ps.index !== index + 1) {
+          ps.index = index + 1;
+          return this.playlistSongsRepository.save(ps);
+        }
+      }),
+    );
 
     return playlist;
   }
