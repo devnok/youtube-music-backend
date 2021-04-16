@@ -11,6 +11,9 @@ export class Song extends BaseEntity {
   @Column()
   sound_file: string;
 
+  @Column({ default: 0 })
+  likes: number;
+
   @ManyToOne(() => Artist, (artist) => artist.songs, { cascade: true })
   @JoinColumn({ name: 'fk_artist_id' })
   artist: Artist;
