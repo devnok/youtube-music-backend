@@ -8,7 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { PlaylistsService } from './playlists.service';
-import { User } from '../lib/decorator';
+import { Public, User } from '../lib/decorator';
 import { PlaylistSongsService } from './playlist-songs.service';
 
 import { CreatePlaylistDto } from './dto/create-playlist.dto';
@@ -39,6 +39,7 @@ export class PlaylistsController {
     return this.playlistSongsService.removeFromPlaylist(playlist_id, song_id);
   }
 
+  @Public()
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.playlistsService.findOne(id);

@@ -113,7 +113,7 @@ export class PlaylistsService {
     });
 
     const valid =
-      playlistSongs.every((ps) => playlist_order.includes(ps.id)) &&
+      playlistSongs.every((ps) => playlist_order.includes(ps.fk_song_id)) &&
       playlistSongs.length === playlist_order.length;
     if (!valid) {
       throw new HttpException(
@@ -121,11 +121,11 @@ export class PlaylistsService {
         HttpStatus.BAD_REQUEST,
       );
     }
-    const playlistSongssById = normalize(playlistSongs, (ps) => ps.id);
-
+    const playlistSongsById = normalize(playlistSongs, (ps) => ps.fk_song_id);
+    console.log(playlistSongsById);
     await Promise.all(
       playlist_order.map((id, index) => {
-        const ps = playlistSongssById[id];
+        const ps = playlistSongsById[id];
         if (ps.index !== index + 1) {
           ps.index = index + 1;
           return this.playlistSongsRepository.save(ps);
