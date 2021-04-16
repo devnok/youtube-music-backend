@@ -11,7 +11,7 @@ export default registerAs('auth', () => {
         ? `http://localhost:3000/dev/${redirectPath}`
         : IS_OFFLINE === 'false'
         ? `http://${'something'}/${redirectPath}`
-        : `http://localhost:3000/dev/${redirectPath}`,
+        : `http://localhost:3000/${redirectPath}`,
     google: {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,

@@ -1,13 +1,7 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  JoinTable,
-  ManyToMany,
-  ManyToOne,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { BaseEntity } from '../base/base.entity';
+import { PlaylistSongs } from './playlist-songs.entity';
 import { Song } from '../songs/song.entity';
 import { User } from '../users/user.entity';
 
@@ -23,15 +17,8 @@ export class Playlist extends BaseEntity {
   @Column('uuid')
   fk_user_id: string;
 
-  @ManyToMany(() => Song)
-  @JoinTable({
-    name: 'playlist_songs',
-    joinColumn: {
-      name: 'fk_playlist_id',
-    },
-    inverseJoinColumn: {
-      name: 'fk_song_id',
-    },
-  })
-  songs: Song[];
+  playlist_songs?: PlaylistSongs[];
+
+  // playlist 재생 시간(분단위)
+  play_time: number;
 }

@@ -16,7 +16,7 @@ export class SongsService {
   async create(user: User, createSongDto: CreateSongDto) {
     const song = this.songsRepository.create({
       ...createSongDto,
-      fk_artist_id: user.fk_artist_id,
+      fk_artist_id: user.artist.id,
     });
     await this.songsRepository.save(song);
 
@@ -42,7 +42,7 @@ export class SongsService {
       throw new HttpException('Song not found', HttpStatus.NOT_FOUND);
     }
 
-    if (song.fk_artist_id !== user.fk_artist_id) {
+    if (song.fk_artist_id !== user.artist.id) {
       throw new HttpException('This song is not yours', HttpStatus.FORBIDDEN);
     }
 
@@ -61,7 +61,7 @@ export class SongsService {
       throw new HttpException('Song not found', HttpStatus.NOT_FOUND);
     }
 
-    if (song.fk_artist_id !== user.fk_artist_id) {
+    if (song.fk_artist_id !== user.artist.id) {
       throw new HttpException('This song is not yours', HttpStatus.FORBIDDEN);
     }
     await this.songsRepository.remove(song);

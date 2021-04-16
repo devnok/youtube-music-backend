@@ -5,6 +5,7 @@ import { UsersService } from '../users/users.service';
 
 interface SocialUser {
   email: string;
+  name: string;
   accessToken: string;
 }
 @Injectable()
@@ -29,11 +30,11 @@ export class AuthService {
   }
 
   async googleLogin(socialUser: SocialUser) {
-    const { email } = socialUser;
+    const { email, name } = socialUser;
 
     let user = await this.usersService.findOne(email);
     if (!user) {
-      user = await this.usersService.create({ email });
+      user = await this.usersService.create({ email, name });
     }
 
     return this.createToken(user);

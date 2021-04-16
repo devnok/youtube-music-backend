@@ -17,7 +17,12 @@ async function bootstrap() {
       new ExpressAdapter(expressApp),
     );
 
-    nestApp.useGlobalPipes(new ValidationPipe({}));
+    nestApp.useGlobalPipes(
+      new ValidationPipe({
+        whitelist: true,
+        forbidNonWhitelisted: true,
+      }),
+    );
 
     await nestApp.init();
 

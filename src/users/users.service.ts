@@ -15,7 +15,7 @@ export class UsersService {
   ) {}
 
   async findOne(id: string): Promise<User | undefined> {
-    return this.usersRepository.findOne({ id });
+    return this.usersRepository.findOne(id, { relations: ['artist'] });
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
