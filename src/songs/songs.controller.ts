@@ -39,4 +39,14 @@ export class SongsController {
   remove(@User() user, @Param('id') id: string) {
     return this.songsService.remove(id, user);
   }
+
+  @Post('like/:id')
+  like(@User() user, @Param('id') id: string) {
+    return this.songsService.like(id, user);
+  }
+
+  @Post('unlike/:id')
+  unlike(@User() user, @Param('id') id: string) {
+    return this.songsService.unlike(id, user);
+  }
 }
