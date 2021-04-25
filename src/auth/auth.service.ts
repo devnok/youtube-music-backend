@@ -32,7 +32,7 @@ export class AuthService {
   async googleLogin(socialUser: SocialUser) {
     const { email, name } = socialUser;
 
-    let user = await this.usersService.findOne(email);
+    let user = await this.usersService.findByEmail(email);
     if (!user) {
       user = await this.usersService.create({ email, name });
     }

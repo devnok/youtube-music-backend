@@ -14,8 +14,11 @@ export class UsersService {
     private readonly artistsRepository: Repository<Artist>,
   ) {}
 
-  async findOne(id: string): Promise<User | undefined> {
+  async findOne(id: string) {
     return this.usersRepository.findOne(id, { relations: ['artist'] });
+  }
+  async findByEmail(email: string) {
+    return this.usersRepository.findOne({ email });
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
