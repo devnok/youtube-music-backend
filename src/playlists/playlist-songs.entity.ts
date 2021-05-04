@@ -1,11 +1,10 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { BaseEntity } from '../base/base.entity';
 import { Playlist } from './playlists.entity';
 import { Song } from '../songs/song.entity';
 
 @Entity()
-@Index(['fk_playlist_id', 'fk_song_id'])
 export class PlaylistSongs extends BaseEntity {
   @ManyToOne(() => Playlist, { cascade: true, eager: true })
   @JoinColumn({ name: 'fk_playlist_id' })
