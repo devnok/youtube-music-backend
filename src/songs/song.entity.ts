@@ -2,9 +2,10 @@ import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { Artist } from '../artists/artists.entity';
 import { BaseEntity } from '../base/base.entity';
+import { SongDto } from './dto/song.dto';
 
 @Entity()
-export class Song extends BaseEntity {
+export class Song extends BaseEntity<SongDto> {
   @Column()
   title: string;
 
@@ -20,4 +21,6 @@ export class Song extends BaseEntity {
 
   @Column('uuid')
   fk_artist_id: string;
+
+  dtoClass = SongDto;
 }

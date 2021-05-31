@@ -1,12 +1,12 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { BaseEntity } from '../base/base.entity';
-import { PlaylistSongs } from './playlist-songs.entity';
-import { Song } from '../songs/song.entity';
+import { PlaylistDto } from './dto/playlist.dto';
+import { PlaylistSong } from './playlist-song.entity';
 import { User } from '../users/user.entity';
 
 @Entity()
-export class Playlist extends BaseEntity {
+export class Playlist extends BaseEntity<PlaylistDto> {
   @Column()
   title: string;
 
@@ -17,8 +17,10 @@ export class Playlist extends BaseEntity {
   @Column('uuid')
   fk_user_id: string;
 
-  playlist_songs?: PlaylistSongs[];
+  playlist_songs?: PlaylistSong[];
 
   // playlist 재생 시간(분단위)
   play_time: number;
+
+  dtoClass = PlaylistDto;
 }

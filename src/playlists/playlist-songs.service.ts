@@ -1,16 +1,16 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Playlist } from './playlists.entity';
-import { PlaylistSongs } from './playlist-songs.entity';
+import { Playlist } from './playlist.entity';
+import { PlaylistSong } from './playlist-song.entity';
 
 @Injectable()
 export class PlaylistSongsService {
   constructor(
     @InjectRepository(Playlist)
     private readonly playlistRepository: Repository<Playlist>,
-    @InjectRepository(PlaylistSongs)
-    private readonly playlistSongsRepository: Repository<PlaylistSongs>,
+    @InjectRepository(PlaylistSong)
+    private readonly playlistSongsRepository: Repository<PlaylistSong>,
   ) {}
 
   async appendToPlaylist(playlistId: string, songId: string) {
@@ -60,11 +60,13 @@ export class PlaylistSongsService {
       ),
       this.playlistSongsRepository.remove(playlistSongs),
     ]);
+
+    return true;
   }
   async subtractIndexAfter(playlistId: string, afterIndex: number) {
     return this.playlistSongsRepository
       .createQueryBuilder()
-      .update(PlaylistSongs)
+      .update(PlaylistSong)
       .set({ index: () => '`index` - 1' }) // index는 mysql 예약어라 감싸줌
       .where('fk_playlist_id = :playlistId', { playlistId })
       .andWhere('index > :afterIndex', { afterIndex })

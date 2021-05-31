@@ -7,7 +7,7 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { User } from '../lib/decorator';
+import { AuthUser } from '../lib/decorator';
 import { AlbumsService } from './albums.service';
 import { CreateAlbumDto } from './dto/create-album.dto';
 import { UpdateAlbumDto } from './dto/update-album.dto';
@@ -17,7 +17,7 @@ export class AlbumsController {
   constructor(private readonly albumsService: AlbumsService) {}
 
   @Post()
-  create(@User() user, @Body() createAlbumDto: CreateAlbumDto) {
+  create(@AuthUser() user, @Body() createAlbumDto: CreateAlbumDto) {
     return this.albumsService.create(user, createAlbumDto);
   }
 
@@ -33,7 +33,7 @@ export class AlbumsController {
 
   @Patch(':id')
   update(
-    @User() user,
+    @AuthUser() user,
     @Param('id') id: string,
     @Body() updateAlbumDto: UpdateAlbumDto,
   ) {
@@ -41,7 +41,7 @@ export class AlbumsController {
   }
 
   @Delete(':id')
-  remove(@User() user, @Param('id') id: string) {
+  remove(@AuthUser() user, @Param('id') id: string) {
     return this.albumsService.remove(id, user);
   }
 }
