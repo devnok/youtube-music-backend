@@ -1,17 +1,11 @@
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-  Request,
-  UseGuards,
-} from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { PlaylistSongs } from './playlist-songs.entity';
+import { PlaylistSong } from './playlist-song.entity';
 import { User } from '../users/user.entity';
 import { CreatePlaylistDto } from './dto/create-playlist.dto';
 import { UpdatePlaylistDto } from './dto/update-playlist.dto';
-import { Playlist } from './playlists.entity';
+import { Playlist } from './playlist.entity';
 import { FindPlaylistListDto } from './dto/find-playlist-list.dto';
 import { normalize } from '../lib/utils';
 
@@ -20,8 +14,8 @@ export class PlaylistsService {
   constructor(
     @InjectRepository(Playlist)
     private readonly playlistsRepository: Repository<Playlist>,
-    @InjectRepository(PlaylistSongs)
-    private readonly playlistSongsRepository: Repository<PlaylistSongs>,
+    @InjectRepository(PlaylistSong)
+    private readonly playlistSongsRepository: Repository<PlaylistSong>,
   ) {}
   async getPlaylistIfValid(id: string, user: User): Promise<Playlist> {
     const playlist = await this.playlistsRepository.findOne(id);

@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { TokenPayloadDto } from './dto/token.payload.dto';
 import { User } from '../users/user.entity';
 import { UsersService } from '../users/users.service';
 
+const expiresIn = 1000 * 60 * 60 * 24;
 interface SocialUser {
   email: string;
   name: string;
@@ -14,29 +16,31 @@ export class AuthService {
     private usersService: UsersService,
     private jwtService: JwtService,
   ) {}
-  async createToken(user: User) {
+  async createToken(user: User): Promise<TokenPayloadDto> {
     const { id, email } = user;
 
     const payload = {
       email,
-      sub: id,
+      id,
     };
 
-    const accessToken = this.jwtService.sign(payload, { expiresIn: '24h' });
+    const accessToken = await this.jwtService.sign(payload, {
+      expiresIn,
+    });
 
-    return {
+    return new TokenPayloadDto({
+      expiresIn,
       accessToken,
-    };
+    });
   }
 
-  async googleLogin(socialUser: SocialUser) {
-    const { email, name } = socialUser;
-
+  async validateUser(userLoginDto: SocialUser) {
+    const { email, name } = userLoginDto;
     let user = await this.usersService.findByEmail(email);
+
     if (!user) {
       user = await this.usersService.create({ email, name });
     }
-
-    return this.createToken(user);
+    return user;
   }
 }

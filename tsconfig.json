@@ -18,6 +18,7 @@
     "experimentalDecorators": true,  // decorator 사용 (class, method, member variable, argument 등에 사용됨 - spring의 annotation과 비슷)
     "emitDecoratorMetadata": true,   // reflect-metadata 모듈과 함께 사용되는 decorator를 위한 metadata의 타입을 추론하게 해준다.
 
+    "resolveJsonModule": true,
   },
   "include": ["src/**/*"]
 }

@@ -1,3 +1,5 @@
+import './polyfill';
+
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { APP_GUARD } from '@nestjs/core';

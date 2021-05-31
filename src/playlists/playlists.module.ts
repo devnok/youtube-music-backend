@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
-import { Playlist } from './playlists.entity';
-import { PlaylistSongs } from './playlist-songs.entity';
+import { Playlist } from './playlist.entity';
+import { PlaylistSong } from './playlist-song.entity';
 import { PlaylistSongsService } from './playlist-songs.service';
 import { PlaylistsController } from './playlists.controller';
 import { PlaylistsService } from './playlists.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Playlist, PlaylistSongs])],
+  imports: [TypeOrmModule.forFeature([Playlist, PlaylistSong])],
   controllers: [PlaylistsController],
   providers: [PlaylistsService, PlaylistSongsService],
 })

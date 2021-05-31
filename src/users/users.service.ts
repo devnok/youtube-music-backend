@@ -38,9 +38,6 @@ export class UsersService {
     });
     await this.artistsRepository.save(artist);
 
-    return {
-      ...user,
-      artist,
-    };
+    return null;
   }
 }
